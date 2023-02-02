@@ -2,6 +2,7 @@ const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
 const cors = require("cors")
+const basicAuth = require('express-basic-auth')
 const mongoose = require("mongoose")
 mongoose.set('strictQuery', true);
 
@@ -13,7 +14,7 @@ const PORT = process.env.PORT || 8000
 app.use(cors())
 app.use(bodyParser.json())
 
-mongoose.connect('mongodb://127.0.0.1:27017/assassins', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://Cluster77026:U3x9ZFdoYlNx@cluster77026.abum787.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once('open', function () {
@@ -25,6 +26,11 @@ app.use(express.json({ extended: false }));  // init middleware
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
+
+// requires each request to have authorization headers!
+// app.use(basicAuth({
+//   users: { 'admin': 'aRealGoodPassword123' }
+// }))
 
 app.use('/assassins', userRoutes)  // enables all user-management endpoints under "/assassins" route
 app.use('/survive', gameRoutes)

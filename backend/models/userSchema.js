@@ -6,6 +6,10 @@ let User = new Schema({
     type: String,
     required: true
   },
+  // password: {  // password is null until user first logs in and sets password..?
+  //   type: String,
+  //   required: true
+  // },
   target: {
     type: String,
     required: true
