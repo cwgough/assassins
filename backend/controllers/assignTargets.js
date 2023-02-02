@@ -1,4 +1,5 @@
 const userSchema = require("../models/userSchema")
+const userCredSchema = require("../models/userCredSchema")
 
 const shuffleArray = arrayNames => {
   for (let i = arrayNames.length - 1; i > 0; i--) {
@@ -42,9 +43,17 @@ const assignTargets = (names) => {
   return assignments
 }
 
-async function addPlayers(req, res) {
-  const result = await userSchema.insertMany(assignTargets(req.body.playerList))
+async function addPlayers(names, res) {
+  const result = await userSchema.insertMany(assignTargets(names))
   res.send(`${result.length} players were initialized.`)
 }
+
+// '/initialize' route calls addPlayers. It's currently a Post method, but if we're grabbing from database it probably shouldn't be that.. maybe an update request?
+// addPlayers is passed an array of names eg. ["James", "Bob", "Dan"]
+// Our goal: pass an array of names from userCred database
+
+
+
+
 
 module.exports = { addPlayers }

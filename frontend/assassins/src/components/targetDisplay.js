@@ -6,7 +6,7 @@ import '../App.css'
 const Display = () => {
   const params = useParams()
   const navigate = useNavigate()
-
+  console.log(params.name)
   const [player, setPlayer] = useState({})
 
   useEffect(() => {

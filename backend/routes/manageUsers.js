@@ -1,6 +1,7 @@
 const express = require("express")
 const userRoutes = express.Router()
-
+/*importing our models*/
+const userCredSchema = require("../models/userCredSchema")
 const userSchema = require("../models/userSchema")
 const assignTargets = require("../controllers/assignTargets")
 
@@ -29,6 +30,20 @@ userRoutes.route("/add").post((req, res) => {
     })
 })
 
+
+/* Mock route to test 
+userRoutes.route("/credTest").get(function(req,res){
+  userCredSchema.find({}, function(err,users){
+    if(err){
+      res.json(`Error: ${err}`)
+    }else{
+      res.json({ message: `Pulling users from database..` })
+      let names = users.map(({name})=>name)
+      console.log(names)
+    }
+  })
+})
+*/
 userRoutes.route("/delete/:name").delete((req, res) => {
   userSchema.deleteOne({ name: req.params.name }, (err, result) => {
     if (err) {
@@ -43,8 +58,16 @@ userRoutes.route("/delete/:name").delete((req, res) => {
   })
 })
 
-userRoutes.route("/initialize").post((req, res) => {
-  assignTargets.addPlayers(req, res)
+userRoutes.route("/initialize").get((req, res) => {
+   userCredSchema.find({}, function(err,users){
+    if(err){
+      res.json(`Error: ${err}`)
+    }else{
+      //previous error occured because sending a res.send here BUT the return of assignTargets.addPlayers(..) also sends a res.send so deleted this one
+      let names = users.map(({name})=>name)
+      assignTargets.addPlayers(names,res)
+    }
+  })
 })
 
 userRoutes.route("/clear").delete((req, res) => {
