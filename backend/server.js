@@ -35,4 +35,11 @@ app.get('/', (req, res) => {
 app.use('/assassins', userRoutes)  // enables all user-management endpoints under "/assassins" route
 app.use('/survive', gameRoutes)
 
+if (process.env.NODE_ENV === 'production') {
+  //*Set static folder up in production
+  app.use(express.static('../frontend/assassins/build'));
+
+  app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'assassins', 'frontend', 'index.html')));
+}
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
