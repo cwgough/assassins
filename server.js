@@ -6,6 +6,7 @@ const basicAuth = require('express-basic-auth')
 const path = require('path')
 const mongoose = require("mongoose")
 mongoose.set('strictQuery', true);
+require('dotenv').config()
 
 const userRoutes = require("./routes/manageUsers")
 const gameRoutes = require("./routes/playerOps")
@@ -15,7 +16,7 @@ const PORT = process.env.PORT || 8000
 app.use(cors())
 app.use(bodyParser.json())
 
-mongoose.connect('mongodb+srv://Cluster77026:U3x9ZFdoYlNx@cluster77026.abum787.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once('open', function () {

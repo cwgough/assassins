@@ -11,7 +11,7 @@ const Display = () => {
 
   useEffect(() => {
     axios
-      .post('http://localhost:8000/survive', { name: params.name })
+      .post(`${process.env.REACT_APP_API_URL}/survive`, { name: params.name })
       .then((res) => {
         setPlayer({
           name: res.data[0].name,
@@ -28,7 +28,7 @@ const Display = () => {
 
   const killTarget = () => {
     axios
-      .patch('http://localhost:8000/survive/kill', { name: player.target })
+      .patch(`${process.env.REACT_APP_API_URL}/survive/kill`, { name: player.target })
       .then((res) => {
         setPlayer({
           name: res.data[0].name,
