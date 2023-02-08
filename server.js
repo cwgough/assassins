@@ -33,8 +33,8 @@ app.use(express.json({ extended: false }));  // init middleware
 app.use('/assassins', userRoutes)  // enables all user-management endpoints
 app.use('/survive', gameRoutes)  // enables all gameplay endpoints
 
-app.use(express.static('../frontend/assassins/build'));
+app.use(express.static('client/build'));
 
-app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'assassins', 'frontend', 'index.html')));
+app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
