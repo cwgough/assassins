@@ -3,7 +3,7 @@ const app = express()
 const bodyParser = require("body-parser")
 const cors = require("cors")
 const basicAuth = require('express-basic-auth')
-const path = require('node:path')
+const path = require('path')
 const mongoose = require("mongoose")
 mongoose.set('strictQuery', true);
 
