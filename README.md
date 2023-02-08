@@ -36,5 +36,3 @@ To initialize a list of players, make a POST request to [http://localhost:8000/a
 Once the players are initialized, the game begins and players can start killing each other. Since there's no authentication, you can simply enter the name of the player you'd like to play as
 
 Once the game has concluded, or if you wish to reset the players, make a DELETE request to [http://localhost:8000/assassins/clear](). Make sure you re-initialize the player list if you wish to play again!
-
-ssh -i .ssh/assassins-aws-key.pem ec2-user@ec2-54-157-163-189.compute-1.amazonaws.com 
