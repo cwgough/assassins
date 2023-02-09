@@ -59,13 +59,13 @@ userRoutes.route("/delete/:name").delete((req, res) => {
 })
 
 userRoutes.route("/initialize").get((req, res) => {
-   userCredSchema.find({}, function(err,users){
-    if(err){
+  userCredSchema.find({}, function (err, users) {
+    if (err) {
       res.json(`Error: ${err}`)
-    }else{
+    } else {
       //previous error occured because sending a res.send here BUT the return of assignTargets.addPlayers(..) also sends a res.send so deleted this one
-      let names = users.map(({name})=>name)
-      assignTargets.addPlayers(names,res)
+      let names = users.map(({ name }) => name)
+      assignTargets.addPlayers(names, res)
     }
   })
 })
@@ -76,6 +76,16 @@ userRoutes.route("/clear").delete((req, res) => {
       res.json(`Error: ${err}`)
     } else {
       res.send(`Deleted ${result.deletedCount} players.`)
+    }
+  })
+})
+
+userRoutes.route("/clearUsers").delete((req, res) => {
+  userCredSchema.deleteMany({}, (err, result) => {
+    if (err) {
+      res.json(`Error: ${err}`)
+    } else {
+      res.send(`Deleted ${result.deletedCount} users.`)
     }
   })
 })
