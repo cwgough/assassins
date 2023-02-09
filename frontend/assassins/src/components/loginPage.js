@@ -51,10 +51,8 @@ const Login = () => {
   return (
   <>
    <section>
-      <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-      <h1>Sign In</h1>
+      <h1>PCT Assassins</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username:</label>
             <input
               type="text"
               id="username"
@@ -65,7 +63,6 @@ const Login = () => {
               required
             />
 
-        <label htmlFor="password">Password:</label>
             <input
               type="password"
               id="password"
@@ -82,6 +79,7 @@ const Login = () => {
         <a href="/register">Register</a>
         </span>
       </p>
+      <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
     </section>
   </>
   )

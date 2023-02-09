@@ -55,12 +55,13 @@ const Display = () => {
   return (
     <div className='TargetDisplay'>
       <div >
-        <h1 className='displayText' > {displayText()} </h1>
+        {player.alive===true ? (        <h1 className='displayText' > {displayText()} </h1>
+): <h1 className='displayText'>You have been assassinated!</h1> }
       </div>
 
       <br></br>
 
-      {(player.winner === false) ? (
+      {(player.alive === true && player.winner === false) ? (
         <button className='KillButton' onClick={killTarget}>
           <h1 className='displayText'> {"Confirm kill"} </h1>
         </button>
