@@ -37,7 +37,8 @@ const assignTargets = (names) => {
       "target": arrayNames[i + 1],
       "assassin": arrayNames[i - 1],
       "alive": true,
-      "winner": false
+      "winner": false,
+      "tagged": false
     })
   }
   return assignments

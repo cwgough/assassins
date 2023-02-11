@@ -21,6 +21,10 @@ let User = new Schema({
   winner: {
     type: Boolean,
     required: true
+  },
+  tagged:{
+    type: Boolean,
+    required: true
   }
 })
 

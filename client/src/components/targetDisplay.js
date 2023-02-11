@@ -13,31 +13,37 @@ const Display = () => {
     axios
       .post(`${process.env.REACT_APP_API_URL}/survive`, { name: params.name })
       .then((res) => {
+        console.log(res)
         setPlayer({
           name: res.data[0].name,
           target: res.data[0].target,
           assassin: res.data[0].assassin,
           alive: res.data[0].alive,
-          winner: res.data[0].winner
+          winner: res.data[0].winner,
+          tagged: res.data[0].tagged
         })
       })
       .catch((err, res) => {
-        res.send(`Error: ${err}`)
+        //res.send(`Error: ${err}`)
+        console.log(err)
       })
   }, [params])
-
-  const killTarget = () => {
+  const updateTarget = () => {
+    axios.post(`${process.env.REACT_APP_API_URL}/survive/tag`, {name:player.target})
+  }
+  const confirmDeath = () => {
     axios
-      .patch(`${process.env.REACT_APP_API_URL}/survive/kill`, { name: player.target })
+      .patch(`${process.env.REACT_APP_API_URL}/survive/kill`, { name: params.name })
       .then((res) => {
         setPlayer({
           name: res.data[0].name,
           target: res.data[0].target,
           assassin: res.data[0].assassin,
           alive: res.data[0].alive,
-          winner: res.data[0].winner
+          winner: res.data[0].winner,
+          tagged: false
         })
-        navigate(`/${params.name}`)
+        navigate(`/${params.assasin}`)
       })
       .catch((err, res) => {
         res.send(`Error: ${err}`)
@@ -55,18 +61,37 @@ const Display = () => {
   return (
     <div className='TargetDisplay'>
       <div >
-        {player.alive === true ? (<h1 className='displayText' > {displayText()} </h1>
-        ) : <h1 className='displayText'>You have been assassinated!</h1>}
+        {/*
+      {player.alive === true ? (
+        <>
+          <h1 className='displayText'>{displayText()}</h1>
+          {(player.winner === false && player.tagged===false) ? (
+            <button className='KillButton' onClick={updateTarget}>
+            <h1 className='displayText'> {"Confirm kill"} </h1>
+            </button>
+            ) : (<button className='confirm-button'onClick={confirmDeath}>Confirm Death</button>)
+          }
+        </>
+        ) : <h1 className='displayText'>You have been assassinated!</h1>}*/}
+        {player.alive === true ? (
+  <>
+    <h1 className='displayText'>{displayText()}</h1>
+    {player.winner === false && player.tagged === true ? (
+      <button className='confirm-button' onClick={confirmDeath}>Confirm Death</button>
+    ) : null}
+    {player.winner === false && player.tagged === false ? (
+      <button className='KillButton' onClick={updateTarget}>
+        <h1 className='displayText'> {"Confirm kill"} </h1>
+      </button>
+    ) : null}
+  </>
+) : <h1 className='displayText'>You have been assassinated!</h1>}
+
       </div>
 
       <br></br>
 
-      {(player.alive === true && player.winner === false) ? (
-        <button className='KillButton' onClick={killTarget}>
-          <h1 className='displayText'> {"Confirm kill"} </h1>
-        </button>
-      ) : null
-      }
+      
 
     </div>
   )
