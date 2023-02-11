@@ -9,6 +9,8 @@ userRoutes.route("/test").get((req, res) => {
   res.send('Test successful')
 })
 
+// PLAYER OPERATIONS
+
 userRoutes.route("/").get((req, res) => {
   userSchema.find((err, users) => {
     if (err) {
@@ -80,12 +82,38 @@ userRoutes.route("/clear").delete((req, res) => {
   })
 })
 
+// USER OPERATIONS
+
+userRoutes.route("/viewUsers").get((req, res) => {
+  userCredSchema.find((err, users) => {
+    if (err) {
+      console.log(err)
+    } else {
+      res.json(users)
+    }
+  })
+})
+
 userRoutes.route("/clearUsers").delete((req, res) => {
   userCredSchema.deleteMany({}, (err, result) => {
     if (err) {
       res.json(`Error: ${err}`)
     } else {
       res.send(`Deleted ${result.deletedCount} users.`)
+    }
+  })
+})
+
+userRoutes.route("/deleteUser/:name").delete((req, res) => {
+  userCredSchema.deleteOne({ name: req.params.name }, (err, result) => {
+    if (err) {
+      res.json(`Error: ${err}`)
+    } else {
+      if (result.deletedCount == 1) {
+        res.json({ message: `Deleted user ${req.params.name}` })
+      } else {
+        res.send(`The user ${req.params.name} was not found. Nothing was deleted.`)
+      }
     }
   })
 })
