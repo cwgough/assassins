@@ -1,5 +1,6 @@
 const userSchema = require("../models/userSchema")
 const axios = require('axios')
+require('dotenv').config()
 
 async function killPlayer(req, res) {
   const killedPlayer = await userSchema.findOneAndUpdate({ name: req.body.name }, { alive: false })
@@ -9,7 +10,7 @@ async function killPlayer(req, res) {
   const slackText = `${killedPlayer.name} ${String.fromCodePoint(0x1F52B)} ${killedPlayer.assassin}`
 
   axios.post(
-    'https://hooks.slack.com/services/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',
+    process.env.SLACK_WEBHOOK,
     { "text": slackText }
   )
 
