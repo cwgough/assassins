@@ -18,4 +18,14 @@ userRoutes.route("/kill").patch((req, res) => {
   updateGame.killPlayer(req, res)
 })
 
+userRoutes.route("/tag").post((req,res)=>{
+  userSchema.findOneAndUpdate({ name: req.body.name },{ $set: {tagged:true } }, (err, user) => {
+    if (err) {
+      console.log(err)
+    } else {
+      res.json(user)
+    }
+  })
+})
+
 module.exports = userRoutes;
