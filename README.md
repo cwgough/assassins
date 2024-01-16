@@ -1,15 +1,15 @@
 # Assassins: The Game
-Copyright Chris Gough 2023
+Copyright Chris Gough 2023 | cwilliam.gough@gmail.com
 
 ## About the app
 
-This is a simple web app built using the MERN stack. At the moment, it can only be run locally, so if you'd like to test it out yourself, you'll have to first clone this repo.
+This is a simple web app built using the MERN stack and deployed using [Render.com](https://render.com/). The deployed application is available [here](https://pct-assassins.onrender.com/). The following instructions are for local deployment only.
 
 > Assassins: The Game requires several dependencies in order to run locally. A full list, as well as installation instructions, are provided below.
 
-Eventually, the app will be hosted on Heroku or something. See [ToDo](/ToDo.md) for a full list of remaining developer tasks.
+This app is a work in progress. See [ToDo](/ToDo.md) for a full list of remaining developer tasks.
 
-**Note**: The login page ([localhost:3000](http://localhost:3000)) currently does nothing. Once you've initialized a list of players, navigate to [localhost:3000/<player-name>](http://localhost:3000/example) to view current progress.
+**Note**: The live website is not currently configured for gameplay, so registering a new user and subsequently logging in will display a message indicating that your player has been assassinated. There does not yet exist administrative functionality to initialize a new game, so if you wish to play, please get in touch.
 
 ## Local Installation and Setup
 
@@ -25,14 +25,6 @@ Once you've cloned the repo, you'll need to install a few dependencies. From the
 
  Once the dependencies have been installed, enter `npm run dev` to launch the application.
 
- ## "Playing" the Game
+ ## Playing the Game
 
-Because the administrative functionality hasn't been built yet, developers will need to enter a list of players manually by making a request to the server. If you don't already have [Postman](https://www.postman.com/downloads/), I highly recommend installing it to make the following process a lot easier.
-
-To initialize a list of players, make a POST request to [http://localhost:8000/assassins/initialize]() with a JSON object containing a list of player names in the request body. Format it like so:
-```
-{ "playerList": ["John", "Paul", "Jorge", "Ben"] }
-```
-Once the players are initialized, the game begins and players can start killing each other. Since there's no authentication, you can simply enter the name of the player you'd like to play as
-
-Once the game has concluded, or if you wish to reset the players, make a DELETE request to [http://localhost:8000/assassins/clear](). Make sure you re-initialize the player list if you wish to play again!
+Because the administrative functionality has not been built yet, I will have to delete all old players to start a new game. Once this has been done, new players can register and sign in. Until the game has been initialized (which, again, only I can do), logged-in users will see a message indicating that they have been assassinated. After initialization, however, the logged-in user will see the name of their target, along with a button labeled "Confirm Kill." When they "kill" their target, the target will have to confirm that they have, in fact, been eliminated (to prevent cheating). Eliminated players are out of the game, and the assassin will receive a new targett.
