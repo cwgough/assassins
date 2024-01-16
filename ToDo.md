@@ -2,4 +2,5 @@
 
 * Create admin page
   * Create admin login _or_ create hidden admin URL
-* Add feature: killfeed
+* Add ability to change killfeed location
+  * Parameterize API entrypoint to Slack channel
